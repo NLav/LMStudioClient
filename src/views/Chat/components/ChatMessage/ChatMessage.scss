@@ -1,0 +1,13 @@
+.chat-message {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  font-size: 1.25rem;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+}
