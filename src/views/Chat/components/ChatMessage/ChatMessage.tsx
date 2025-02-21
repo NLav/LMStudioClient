@@ -9,7 +9,7 @@ interface IChatMessageProps {
 
 function ChatMessage({ message }: IChatMessageProps) {
   return (
-    <div className="chat-message">
+    <div className={`chat-message--${message.role}`}>
       <span className="chat-message__time">
         <b>{dayjs(message.timestamp).format("DD/MM/YYYY à[s] HH:mm:ss")}</b>
       </span>

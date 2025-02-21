@@ -10,4 +10,16 @@
     flex-direction: column;
     width: 100%;
   }
+
+  &--sender {
+    @extend .chat-message;
+
+    text-align: end;
+  }
+
+  &--receiver {
+    @extend .chat-message;
+
+    text-align: start;
+  }
 }

@@ -45,7 +45,9 @@ function Chat() {
         className={`chat__messages${messages.length === 0 ? "--empty" : ""}`}
       >
         {messages.length > 0 ? (
-          messages.map((message) => <ChatMessage message={message} />)
+          messages.map((message) => (
+            <ChatMessage key={String(message.timestamp)} message={message} />
+          ))
         ) : (
           <span>Chat vazio</span>
         )}
