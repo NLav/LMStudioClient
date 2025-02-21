@@ -1,42 +1,36 @@
 import { IMessage } from "@/interfaces";
-import { ChatService } from "@/services/chatService";
+import { ChatService } from "@/services";
 import { PaperPlaneRight } from "@phosphor-icons/react";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import "./Chat.scss";
 import { ChatMessage } from "./components";
 
 function Chat() {
-  const [prompt, setPrompt] = useState<string>("");
+  const [currentInputValue, setCurrentInputValue] = useState<string>("");
   const [messages, setMessages] = useState<IMessage[]>([]);
 
-  const handleSend = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const mutation = useMutation({
+    mutationFn: async (input: string) => {
+      setMessages((current) => [
+        { content: input, role: "sender", timestamp: new Date() },
+        ...current,
+      ]);
 
-    setPrompt("");
-    setMessages((current) => [
-      {
-        content: prompt,
-        timestamp: new Date(),
-        role: "sender",
-      },
-      ...current,
-    ]);
+      const response = ChatService.postPrompt(input);
 
-    ChatService.postPrompt(prompt)
-      .then((response) => {
-        setMessages((current) => [
-          {
-            content: response.data.choices[0].message.content.trim(),
-            timestamp: new Date(),
-            role: "receiver",
-          },
-          ...current,
-        ]);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  };
+      return (await response).data.choices[0].message.content;
+    },
+    onSuccess: (message) => {
+      setMessages((current) => [
+        { content: message, role: "receiver", timestamp: new Date() },
+        ...current,
+      ]);
+    },
+    onError: (error) => {
+      console.error("Error fetching messages:", error);
+    },
+  });
 
   return (
     <div className="chat">
@@ -53,14 +47,19 @@ function Chat() {
         )}
       </div>
 
-      <form onSubmit={(event) => handleSend(event)}>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          mutation.mutate(currentInputValue);
+        }}
+      >
         <input
           type="text"
-          value={prompt}
-          onChange={(e) => setPrompt(e.target.value)}
+          value={currentInputValue}
+          onChange={(e) => setCurrentInputValue(e.target.value)}
         />
 
-        <button type="submit" disabled={prompt.trim() === ""}>
+        <button type="submit" disabled={currentInputValue.trim() === ""}>
           <PaperPlaneRight size={32} />
         </button>
       </form>
