@@ -601,6 +601,18 @@
   resolved "https://pkgs.dev.azure.com/teamsoftbr/_packaging/Packages/npm/registry/@rtsao/scc/-/scc-1.1.0.tgz"
   integrity sha1-kn3S+um8M2FAOsLHoAwy3c6a1+g=
 
+"@tanstack/query-core@5.66.4":
+  version "5.66.4"
+  resolved "https://pkgs.dev.azure.com/teamsoftbr/_packaging/Packages/npm/registry/@tanstack/query-core/-/query-core-5.66.4.tgz#44b87bff289466adbfa0de8daa5756cbd2d61c61"
+  integrity sha1-RLh7/yiUZq2/oN6NqldWy9LWHGE=
+
+"@tanstack/react-query@^5.66.8":
+  version "5.66.8"
+  resolved "https://pkgs.dev.azure.com/teamsoftbr/_packaging/Packages/npm/registry/@tanstack/react-query/-/react-query-5.66.8.tgz#a27494a4ce69c88363eee33637a57e013d7dd5c1"
+  integrity sha1-onSUpM5pyINj7uM2N6V+AT191cE=
+  dependencies:
+    "@tanstack/query-core" "5.66.4"
+
 "@types/babel__core@^7.20.5":
   version "7.20.5"
   resolved "https://pkgs.dev.azure.com/teamsoftbr/_packaging/Packages/npm/registry/@types/babel__core/-/babel__core-7.20.5.tgz"
