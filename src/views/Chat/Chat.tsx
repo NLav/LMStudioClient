@@ -7,7 +7,7 @@ import { ChatMessage } from "./components";
 function Chat() {
   const [prompt, setPrompt] = useState<string>("");
 
-  const { mutation, messages } = useChat();
+  const { currentMessage, messages, mutation } = useChat();
 
   return (
     <div className="chat">
@@ -15,10 +15,23 @@ function Chat() {
       <div
         className={`chat__messages${messages.length === 0 ? "--empty" : ""}`}
       >
-        {messages.length > 0 ? (
-          messages.map((message) => (
-            <ChatMessage key={String(message.timestamp)} message={message} />
-          ))
+        {(currentMessage && currentMessage?.length > 0) ||
+        messages.length > 0 ? (
+          <>
+            {currentMessage && (
+              <ChatMessage
+                message={{
+                  content: currentMessage,
+                  role: "receiver",
+                  timestamp: new Date(),
+                }}
+              />
+            )}
+
+            {messages.map((message) => (
+              <ChatMessage key={String(message.timestamp)} message={message} />
+            ))}
+          </>
         ) : (
           <span>Chat vazio</span>
         )}

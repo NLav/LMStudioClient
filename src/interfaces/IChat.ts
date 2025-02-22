@@ -3,22 +3,13 @@ export interface ICompletion {
   object: string;
   created: number;
   model: string;
+  system_fingerprint: string;
   choices: [
     {
-      index: number;
-      finish_reason: string;
-      message: {
-        role: string;
-        content: string;
-      };
+      index: 0;
+      delta: { role: string; content: string };
     },
   ];
-  usage: {
-    prompt_tokens: number;
-    completion_tokens: number;
-    total_tokens: number;
-  };
-  system_fingerprint: string;
 }
 
 export interface IMessage {
