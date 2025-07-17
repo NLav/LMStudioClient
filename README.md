@@ -1,7 +1,7 @@
-# React + TypeScript + Vite
+# Simple LMStudio client
+A really simple client to be used with LMStudio.
 
-Also adds:
-
+uses:
 - [Eslint](https://eslint.org/) (8) with:
   - [Prettier](https://prettier.io/)
   - [Airbnb](https://www.npmjs.com/package/eslint-config-airbnb)
